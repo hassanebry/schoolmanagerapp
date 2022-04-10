@@ -3,11 +3,13 @@ package com.silvercode.schoolmanagerapp.service;
 
 import com.silvercode.schoolmanagerapp.dtos.StudentRequest;
 import com.silvercode.schoolmanagerapp.exceptions.EmailAlreadyTakenException;
+import com.silvercode.schoolmanagerapp.exceptions.StudentDoesNotExistException;
 import com.silvercode.schoolmanagerapp.model.Student;
 import com.silvercode.schoolmanagerapp.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +29,20 @@ public class StudentService {
                 .email(studentRequest.getEmail())
                 .age(studentRequest.getAge()).build()
         );
+    }
+
+    public List<Student> getAllStudents(){
+        return studentRepository.findAll();
+    }
+
+    public Student getStudentByEmail(String email){
+        return studentRepository.findAll().stream()
+                .filter(p -> p.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new StudentDoesNotExistException("This student does not exist"));
+    }
+
+    public void deleteStudent(Long studentId){
+        studentRepository.deleteById(studentId);
     }
 }
