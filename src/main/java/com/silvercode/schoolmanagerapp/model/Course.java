@@ -1,12 +1,14 @@
 package com.silvercode.schoolmanagerapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Course {
 
@@ -16,4 +18,5 @@ public class Course {
     private Long courseId;
     private String courseName;
     private String department;
+
 }

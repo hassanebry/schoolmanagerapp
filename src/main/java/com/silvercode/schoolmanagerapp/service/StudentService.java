@@ -41,15 +41,11 @@ public class StudentService {
     }
 
     public Student getStudentByEmail(String email){
-        /*return studentRepository.findAll().stream()
+        return studentRepository.findAll().stream()
                 .filter(p -> p.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new StudentDoesNotExistException("This student does not exist"));*/
-        Optional<Student> optionalStudent = studentRepository.findByEmail(email);
-        if (optionalStudent.isEmpty()){
-            throw new StudentDoesNotExistException("This student does not exist");
-        }
-        return optionalStudent.get();
+                .orElseThrow(() -> new StudentDoesNotExistException("This student does not exist"));
+
     }
 
     public Student getStudentById(Long studentId){

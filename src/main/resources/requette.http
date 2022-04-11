@@ -1,0 +1,83 @@
+###
+POST http://localhost:8080/api/v1/schoolmanage/student
+Content-Type: application/json
+
+{
+  "firstName": "hassane",
+  "lastName": "barry",
+  "email": "htest@test.com",
+  "age": 20
+}
+###
+POST http://localhost:8080/api/v1/schoolmanage/student
+Content-Type: application/json
+
+{
+  "firstName": "hawa",
+  "lastName": "diallo",
+  "email": "hawatest@test.com",
+  "age": 25
+}
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/students
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/student/htest@test.com
+
+### DELETE http://localhost:8080/api/v1/schoolmanage/student/{{studentId}}
+
+###
+POST http://localhost:8080/api/v1/schoolmanage/book
+Content-Type: application/json
+
+{
+  "title": "Clean code 1",
+  "createdAt": "2022-04-10"
+}
+
+###
+
+POST http://localhost:8080/api/v1/schoolmanage/book
+Content-Type: application/json
+
+{
+  "title": "Clean code 2",
+  "createdAt": "2022-04-10"
+}
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/books
+
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/book/1
+
+###
+POST http://localhost:8080/api/v1/schoolmanage/student/1/book?bookId=1
+
+###
+POST http://localhost:8080/api/v1/schoolmanage/student/1/book?bookId=2
+
+###
+POST http://localhost:8080/api/v1/schoolmanage/course
+Content-Type: application/json
+
+{
+  "courseName": "interrop",
+  "department": "info"
+}
+
+###
+POST http://localhost:8080/api/v1/schoolmanage/course
+Content-Type: application/json
+
+{
+  "courseName": "bdsi",
+  "department": "info"
+}
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/course/bdsi
+
+### DELETE http://localhost:8080/api/v1/schoolmanage/course/{{courseId}}
