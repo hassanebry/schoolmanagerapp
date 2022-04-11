@@ -4,13 +4,14 @@ package com.silvercode.schoolmanagerapp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Student {
 
     @Id
@@ -21,5 +22,19 @@ public class Student {
     private String lastName;
     private String email;
     private Integer age;
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Book> books = new HashSet<>();
+
+    public Student(String firstName, String lastName, String email, Integer age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+    }
+
+    public void addBook(Book book){
+        this.books.add(book);
+    }
 
 }
