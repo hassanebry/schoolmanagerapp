@@ -2,10 +2,12 @@ package com.silvercode.schoolmanagerapp.service;
 
 
 import com.silvercode.schoolmanagerapp.dtos.StudentRequest;
+import com.silvercode.schoolmanagerapp.exceptions.CourseDoesntExistsException;
 import com.silvercode.schoolmanagerapp.exceptions.EmailAlreadyTakenException;
 import com.silvercode.schoolmanagerapp.exceptions.StudentDoesNotExistException;
+import com.silvercode.schoolmanagerapp.model.Course;
 import com.silvercode.schoolmanagerapp.model.Student;
-import com.silvercode.schoolmanagerapp.repository.BookRepository;
+import com.silvercode.schoolmanagerapp.repository.CourseRepository;
 import com.silvercode.schoolmanagerapp.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +22,7 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final BookService bookService;
-    private final BookRepository bookRepository;
+    private final CourseRepository courseRepository;
 
     public void createUser(StudentRequest studentRequest) throws EmailAlreadyTakenException {
         Optional<Student> studentOptional = studentRepository.findByEmail(studentRequest.getEmail());
@@ -41,26 +42,24 @@ public class StudentService {
     }
 
     public Student getStudentByEmail(String email){
-        /*return studentRepository.findAll().stream()
+        return studentRepository.findAll().stream()
                 .filter(p -> p.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new StudentDoesNotExistException("This student does not exist"));*/
-        Optional<Student> optionalStudent = studentRepository.findByEmail(email);
-        if (optionalStudent.isEmpty()){
-            throw new StudentDoesNotExistException("This student does not exist");
-        }
-        return optionalStudent.get();
-    }
-
-    public Student getStudentById(Long studentId){
-        return studentRepository.findAll().stream()
-                .filter(p -> p.getStudentId().equals(studentId))
-                .findFirst()
                 .orElseThrow(() -> new StudentDoesNotExistException("This student does not exist"));
+
     }
 
     public void deleteStudent(Long studentId){
         studentRepository.deleteById(studentId);
+    }
+
+    public void enrollingCourse(Long studentId, Long courseId){
+        Student student = studentRepository.findById(studentId).orElseThrow(()->new StudentDoesNotExistException("student absent"));
+        Course course = courseRepository.findById(courseId).orElseThrow(()->new CourseDoesntExistsException("course absent"));
+
+        List<Course> enrollements = student.getEnroledAt();
+        enrollements.add(course);
+        studentRepository.save(student);
     }
 
 }
