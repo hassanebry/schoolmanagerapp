@@ -86,5 +86,4 @@ POST http://localhost:8080/api/v1/schoolmanage/student/1/course?courseId=1
 
 ###
 GET http://localhost:8080/api/v1/schoolmanage/courses
-
 ###

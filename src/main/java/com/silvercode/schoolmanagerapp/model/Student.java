@@ -2,6 +2,7 @@ package com.silvercode.schoolmanagerapp.model;
 
 
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -32,6 +33,10 @@ public class Student {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id_card")
+    private IdCard idCard;
 
     public Student(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
