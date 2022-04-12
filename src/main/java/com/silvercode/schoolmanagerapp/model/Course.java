@@ -3,9 +3,9 @@ package com.silvercode.schoolmanagerapp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
-@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,4 +19,22 @@ public class Course {
     private String courseName;
     private String department;
 
+    @ManyToMany(mappedBy = "enroledAt")
+    private List<Student> students;
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public List<Student> getStudents() {
+        return null;
+    }
 }

@@ -74,9 +74,16 @@ public class SchoolManageController {
     }
 
     @PostMapping(path = "/student/{studentId}/book")
-    public ResponseEntity<String> studentBuyingBook(@PathVariable("studentId") Long studentId, @RequestParam("bookId") Long bookId){
+    public ResponseEntity<String> studentBuyingBook(
+            @PathVariable("studentId") Long studentId,
+            @RequestParam("bookId") Long bookId){
         bookService.assignBookToStudent(bookId, studentId);
         return ResponseEntity.status(HttpStatus.OK).body("achat effectué avec succès !");
+    }
+
+    @GetMapping(path = "/courses")
+    public ResponseEntity<List<Course>> getAllCourses(){
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
     }
 
     @PostMapping(path = "/course")
@@ -95,6 +102,15 @@ public class SchoolManageController {
         bookService.deleteBook(courseId);
         return ResponseEntity.status(204).body("course deleted");
     }
+
+    @PostMapping(path="/student/{studentId}/course")
+    public ResponseEntity<String> studentEnrolCourse(
+            @PathVariable("studentId") Long studentId,
+            @RequestParam("courseId") Long courseId){
+        studentService.enrollingCourse(studentId, courseId);
+        return ResponseEntity.ok("Enrolement done !");
+    }
+
 
 
 }

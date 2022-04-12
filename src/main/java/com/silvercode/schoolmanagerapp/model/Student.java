@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,12 @@ public class Student {
     private String lastName;
     private String email;
     private Integer age;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "enrolment",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> enroledAt;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();

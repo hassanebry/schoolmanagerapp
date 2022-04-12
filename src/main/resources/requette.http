@@ -73,11 +73,18 @@ POST http://localhost:8080/api/v1/schoolmanage/course
 Content-Type: application/json
 
 {
-  "courseName": "bdsi",
+  "courseName": "math",
   "department": "info"
 }
 
 ###
-GET http://localhost:8080/api/v1/schoolmanage/course/bdsi
+GET http://localhost:8080/api/v1/schoolmanage/course/math
 
 ### DELETE http://localhost:8080/api/v1/schoolmanage/course/{{courseId}}
+
+POST http://localhost:8080/api/v1/schoolmanage/student/1/course?courseId=1
+
+###
+GET http://localhost:8080/api/v1/schoolmanage/courses
+
+###
