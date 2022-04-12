@@ -6,6 +6,7 @@ import com.silvercode.schoolmanagerapp.exceptions.CourseDoesntExistsException;
 import com.silvercode.schoolmanagerapp.exceptions.EmailAlreadyTakenException;
 import com.silvercode.schoolmanagerapp.exceptions.StudentDoesNotExistException;
 import com.silvercode.schoolmanagerapp.model.Course;
+import com.silvercode.schoolmanagerapp.model.IdCard;
 import com.silvercode.schoolmanagerapp.model.Student;
 import com.silvercode.schoolmanagerapp.repository.CourseRepository;
 import com.silvercode.schoolmanagerapp.repository.StudentRepository;
@@ -62,4 +63,14 @@ public class StudentService {
         studentRepository.save(student);
     }
 
+    public Student getStudentById(Long studentId) {
+        return studentRepository.findById(studentId).orElseThrow(()->new StudentDoesNotExistException("student absent"));
+    }
+
+    public void createCard(Long studentId){
+        Student student = studentRepository.findById(studentId).orElseThrow(()->new StudentDoesNotExistException("student absent"));
+        IdCard idCard = new IdCard();
+        student.setIdCard(idCard);
+        studentRepository.save(student);
+    }
 }

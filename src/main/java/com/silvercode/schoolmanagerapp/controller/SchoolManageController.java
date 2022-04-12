@@ -9,6 +9,7 @@ import com.silvercode.schoolmanagerapp.model.Course;
 import com.silvercode.schoolmanagerapp.model.Student;
 import com.silvercode.schoolmanagerapp.service.BookService;
 import com.silvercode.schoolmanagerapp.service.CourseService;
+import com.silvercode.schoolmanagerapp.service.IdCardService;
 import com.silvercode.schoolmanagerapp.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class SchoolManageController {
     private final StudentService studentService;
     private final BookService bookService;
     private final CourseService courseService;
+    private final IdCardService idCardService;
 
     @PostMapping(path = "/student")
     public ResponseEntity<String> saveStudent(@RequestBody StudentRequest studentRequest, UriComponentsBuilder builder){
@@ -109,6 +111,13 @@ public class SchoolManageController {
             @RequestParam("courseId") Long courseId){
         studentService.enrollingCourse(studentId, courseId);
         return ResponseEntity.ok("Enrolement done !");
+    }
+
+    @PostMapping(path = "/student/{studentId}/idcard")
+    public ResponseEntity<String> generateIdCardForStudent(@PathVariable("studentId") Long studentId,
+                                                           UriComponentsBuilder builder){
+        studentService.createCard(studentId);
+        return ResponseEntity.created(URI.create(builder.toUriString()+"/"+UUID.randomUUID())).body("card created");
     }
 
 
